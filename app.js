@@ -4,6 +4,9 @@ const booksRouter = require('./controllers/booksController');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require ('cors');
+
+app.use(cors({origin:'*'})); 
 app.use(express.json());
 app.use('/books', booksRouter);
 
@@ -12,7 +15,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USER}:${process.env.MO
 .catch( err => console.error('Could not connect to MongoDB..',err))
 
 //PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 

@@ -4,15 +4,6 @@ const booksService = require('../services/booksService');
 const Book = require('../models/bookSchema');
 const Joi = require('joi');
 
-// Allow origin Acces origin and methods..
-router.use(function(req,res,next){
-    res.setHeader("Access-Control-Allow-Origin",'*');
-    res.setHeader("Access-Control-Allow-Credentials",true);
-    res.setHeader("Access-Control-Allow-Methods",POST, GET, PUT, DELETE, OPTIONS);
-    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json");
-    next();
-})
-
 router.get('/', async (req, res) => {
     try{
         const books = await booksService.getBooks()
