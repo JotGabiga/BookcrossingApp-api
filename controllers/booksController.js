@@ -34,7 +34,8 @@ router.post('/', async (req, res) => {
         rating: req.body.rating,
         cover: req.body.cover,
         publishingHouse: req.body.publishingHouse,
-        tags: req.body.tags
+        tags: req.body.tags,
+        votes: req.body.votes
     });
     booksService.createBook(book);
     res.status(201).send(book);
@@ -56,9 +57,24 @@ router.put('/:id', async (req, res) => {
     book.cover = req.body.cover;
     book.publishingHouse = req.body.publishingHouse;
     book.tags = req.body.tags;
+    book.votes = req.body.votes;
 
     res.status(204).send(book); 
 });
+
+router.patch('/:id', async (req, res) => {
+    const book = await booksService.updateBook(req.params.id,req.body);
+
+    if (!book) return res.status(404).send("The book with given ID was not found") //404
+    const { error } = validateVotes(req.body); //result.error
+    if (error) return res.status(400).send(error.details[0].message);  //400
+
+    book.id = parseInt(req.params.id);
+    book.votes = req.body.votes;
+
+    res.status(204).send(book); 
+});
+
 
 function validateBook(book) {
     const schema = {
@@ -69,9 +85,17 @@ function validateBook(book) {
         rating: Joi.string().min(0).allow(""),
         cover: Joi.string().min(0).allow(""),
         publishingHouse: Joi.string().min(2).required(),
-        tags: Joi.array().items(Joi.string())
+        tags: Joi.array().items(Joi.string()),
+        votes: Joi.array().allow("")
     };
     return Joi.validate(book, schema);   
+}
+
+function validateVotes(votes) {
+    const schema = {
+        votes: Joi.array().allow("")
+    };
+    return Joi.validate(votes, schema);   
 }
 
 router.delete ('/:id', async (req, res) => {

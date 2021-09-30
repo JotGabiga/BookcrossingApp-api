@@ -8,7 +8,8 @@ const booksSchema = new mongoose.Schema({
     rating: String,
     cover: String,
     publishingHouse: String,
-    tags: [String]
+    tags: [String],
+    votes:[Number]
 });
 
 const Book = mongoose.model('Book', booksSchema);

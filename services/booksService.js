@@ -20,10 +20,10 @@ async function getBookById(id){
         .findById(id)
 };
 
-async function updateBook(id, update){
+async function updateBook(id,book){
     return await Book
         .findById(id)
-        .updateOne( update)    
+        .updateOne(book)    
 }; 
 
 async function deleteBook(id){
