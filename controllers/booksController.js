@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
         authors: req.body.authors,
         releaseDate: new Date(req.body.releaseDate+"T00:00:00Z"),
         description: req.body.description,
-        rating: req.body.rating,
         cover: req.body.cover,
         publishingHouse: req.body.publishingHouse,
         tags: req.body.tags,
@@ -53,7 +52,6 @@ router.put('/:id', async (req, res) => {
     book.authors = req.body.authors;
     book.releaseDate = new Date(req.body.releaseDate+"T00:00:00Z");
     book.description = req.body.description;
-    book.rating = req.body.rating;
     book.cover = req.body.cover;
     book.publishingHouse = req.body.publishingHouse;
     book.tags = req.body.tags;
@@ -63,7 +61,7 @@ router.put('/:id', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-    const book = await booksService.updateBook(req.params.id,req.body);
+    const book = await booksService.updateVotes(req.params.id,req.body);
 
     if (!book) return res.status(404).send("The book with given ID was not found") //404
     const { error } = validateVotes(req.body); //result.error
