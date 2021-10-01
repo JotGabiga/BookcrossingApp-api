@@ -62,13 +62,10 @@ router.put('/:id', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     const book = await booksService.updateVotes(req.params.id,req.body);
-
+    
     if (!book) return res.status(404).send("The book with given ID was not found") //404
     const { error } = validateVotes(req.body); //result.error
     if (error) return res.status(400).send(error.details[0].message);  //400
-
-    book.id = parseInt(req.params.id);
-    book.votes = req.body.votes;
 
     res.status(204).send(book); 
 });

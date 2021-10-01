@@ -1,6 +1,7 @@
 
 const Joi = require('joi');
 const booksRouter = require('./controllers/booksController');
+const tagsRouter = require('./controllers/tagsController');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -9,6 +10,7 @@ const cors = require ('cors');
 app.use(cors({origin:'*'})); 
 app.use(express.json());
 app.use('/books', booksRouter);
+app.use('/tags',tagsRouter);
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USER}:${process.env.MONGO_ATLAS_PASSWORD}@bookcrossingcluster.mqqso.mongodb.net/bookcrossingCluster?retryWrites=true&w=majority`)
 .then(()=>console.log('Connected to MongoDB..'))

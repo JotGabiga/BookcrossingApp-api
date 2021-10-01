@@ -28,8 +28,8 @@ async function updateBook(id,book){
         .updateOne(book)    
 }; 
 async function updateVotes(id,fieldsToUpdate){
-    const ratingValue = Math.round(average(fieldsToUpdate.votes) * 10) / 10
-   return updateBook(id,{rating:ratingValue,votes:fieldsToUpdate.votes})    
+    const ratingValue = Math.round( average(fieldsToUpdate.votes) * 10) / 10
+    return updateBook(id,{rating:ratingValue,votes:fieldsToUpdate.votes})    
 }; 
 
 async function deleteBook(id){
