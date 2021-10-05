@@ -9,12 +9,12 @@ async function createBook(book){
 console.log(result);
 }
 
-async function getBooks(){
-    return await Book
-        .find()
-        .limit(100)
-        .sort({title:1})
-        // .select({title:1, tags:1 });
+async function getBooks(tag){
+return await Book 
+    .find(tag ? {tags:tag} : null)
+    .limit(100)
+    .sort({title:1})
+    // .select({title:1, tags:1 });
 };
 
 async function getBookById(id){

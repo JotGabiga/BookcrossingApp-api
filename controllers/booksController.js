@@ -6,7 +6,7 @@ const Joi = require('joi');
 
 router.get('/', async (req, res) => {
     try{
-        const books = await booksService.getBooks()
+        const books = await booksService.getBooks(req.query.tags)
         res.send(books);
     }
     catch(ex) {
