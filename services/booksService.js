@@ -5,8 +5,7 @@ const Book = require('../models/bookSchema');
 const average = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
 
 async function createBook(book){
-    const result = await book.save()
-console.log(result);
+    return await book.save()
 }
 
 async function getBooks(tag){

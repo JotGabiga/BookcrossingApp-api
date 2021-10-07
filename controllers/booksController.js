@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { error } = await validateBook(req.body); //result.error
+    const { error } = validateBook(req.body); //result.error
     if (error) return res.status(400).send(error.details[0].message); //400  
 
    const book = new Book ( {
