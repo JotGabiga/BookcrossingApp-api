@@ -36,4 +36,9 @@ async function deleteBook(id){
         .findByIdAndRemove(id)
 };
 
-module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, updateVotes};
+async function getBooksByIdList(bookIds){
+    return await Book
+    .find({ '_id': { $in: bookIds} });
+};
+
+module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, updateVotes,getBooksByIdList};

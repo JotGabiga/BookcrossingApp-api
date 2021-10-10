@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const usersService = require('../services/usersService');
+const booksService = require('../services/booksService');
+
 const User = require('../models/userSchema');
 const Joi = require('joi');
 
@@ -12,6 +14,42 @@ router.get('/', async (req, res) => {
     catch(ex) {
        res.status(500).send('Something failed.')
     }
+});
+
+router.get('/:id/readBooks', async (req, res) => {
+    const user = await usersService.getUsersById(req.params.id);
+    const readBooks = await booksService.getBooksByIdList(user.readBooks);
+    if (!readBooks) return res.status(404).send("The book with given ID was not found") //404
+    res.send(readBooks);
+});
+
+router.get('/:id/currentlyReadBooks', async (req, res) => {
+    const user = await usersService.getUsersById(req.params.id);
+    const readBooks = await booksService.getBooksByIdList(user.currentlyReadBooks);
+    if (!readBooks) return res.status(404).send("The book with given ID was not found") //404
+    res.send(readBooks);
+});
+
+router.get('/:id/wantToRead', async (req, res) => {
+    const user = await usersService.getUsersById(req.params.id);
+    const readBooks = await booksService.getBooksByIdList(user.wantToRead);
+    if (!readBooks) return res.status(404).send("The book with given ID was not found") //404
+    res.send(readBooks);
+});
+
+router.get('/:id/bookcrossing', async (req, res) => {
+    const user = await usersService.getUsersById(req.params.id);
+    const readBooks = await booksService.getBooksByIdList(user.bookcrossing);
+    if (!readBooks) return res.status(404).send("The book with given ID was not found") //404
+    res.send(readBooks);
+});
+
+
+
+router.get('/books', async (req, res) => {
+    const books = await usersService.getUserBooks(req.query.bookIds); // bookIds Validation needed!!
+    if (!books) return res.status(404).send("The book with given ID was not found") //404
+    res.send(books);
 });
 
 router.get('/:id', async (req, res) => {
