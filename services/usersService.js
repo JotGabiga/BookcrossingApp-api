@@ -6,9 +6,9 @@ async function createUser(user){
     return await user.save()
 }
 
-async function getUsers(){
+async function getUser(){
     return await User
-        .find()
+        .findOne()
 };
 
 async function getUsersById(id){
@@ -27,4 +27,4 @@ async function deleteUser(id){
         .findByIdAndRemove(id)
 };
 
-module.exports = {createUser, getUsers, getUsersById, updateUser, deleteUser};
+module.exports = {createUser, getUser, getUsersById, updateUser, deleteUser};

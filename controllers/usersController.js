@@ -6,9 +6,9 @@ const booksService = require('../services/booksService');
 const User = require('../models/userSchema');
 const Joi = require('joi');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => { //added only for demo purpose
     try{
-        const users = await usersService.getUsers()
+        const users = await usersService.getUser()
         res.send(users);
     }
     catch(ex) {
