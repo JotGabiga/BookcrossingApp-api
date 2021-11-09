@@ -11,11 +11,20 @@ async function createBook(book){
 async function getBooks(tag){
 return await Book 
     .find(tag ? {tags:tag} : null)
-    .limit(100)
     .sort({title:1})
     // .select({title:1, tags:1 });
 };
 
+async function getPaginatedBooks(skip){
+    console.log(skip)
+    return await Book 
+        .find()
+        .limit(9)
+        .sort({title:1})
+        .skip(parseInt(skip, 10))
+    };
+
+    
 async function getBookById(id){
     return await Book
         .findById(id)
@@ -31,9 +40,23 @@ async function updateVotes(id,fieldsToUpdate){
     return updateBook(id,{rating:ratingValue,votes:fieldsToUpdate.votes})    
 }; 
 
+async function patchBook(id,fieldsToUpdate){
+    if(fieldsToUpdate.votes){
+        fieldsToUpdate.rating = Math.round( average(fieldsToUpdate.votes) * 10) / 10
+    }
+    return updateBook(id,fieldsToUpdate)    
+}; 
+
 async function deleteBook(id){
     return await Book
         .findByIdAndRemove(id)
+};
+
+async function deleteBookComment(id, commentId){
+    Book.findById(id, function(err, book){
+    book.comments = book.comments.filter(item => item._id.valueOf() !== commentId);
+    updateBook(id,book);
+    })
 };
 
 async function getBooksByIdList(bookIds){
@@ -41,4 +64,4 @@ async function getBooksByIdList(bookIds){
     .find({ '_id': { $in: bookIds} });
 };
 
-module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, updateVotes,getBooksByIdList};
+module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, patchBook, updateVotes,getBooksByIdList,deleteBookComment,getPaginatedBooks};
