@@ -22,6 +22,7 @@ const cors = require('cors');
 
 // const corsMiddleware = require ('./cors');
 // app.use(corsMiddleware);
+app.use(cors());
 app.use(express.json());
 app.use('/books', booksRouter);
 app.use('/tags',tagsRouter);
