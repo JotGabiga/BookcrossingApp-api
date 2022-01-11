@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const corsMiddleware = require ('./cors');
 
 const app = express();
+app.options('*',corsMiddleware);
 app.use(corsMiddleware);
 
 // app.use(cors({origin:'*'})); 
