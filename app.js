@@ -11,18 +11,12 @@ const mongoose = require('mongoose');
 const app = express();
 
 const cors = require('cors');
-app.use(cors());
-
-
-
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Origin", "https://bookcrossing-328121.web.app/");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Request-Headers", "*");
     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS, PUT, PATCH');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Credentials", "true");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS, PUT, PATCH');
     next();
   });
 
