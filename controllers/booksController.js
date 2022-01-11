@@ -31,7 +31,6 @@ router.get(`/paginated`, async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     const book = await booksService.getBookById(req.params.id);
-    // console.log(book)
     if (!book) return res.status(404).send("The book with given ID was not found") //404
     res.send(book);
 });
@@ -66,7 +65,6 @@ router.post('/:id/comments', async (req, res) => {
     req.body.comments._id = id;
     book.comments.push(req.body.comments)
     booksService.createBook(book);
-    console.log(book)
     res.status(201).send(id);
 
 });

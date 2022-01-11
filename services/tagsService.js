@@ -6,7 +6,6 @@ const average = arr => arr.reduce((a,b)=>a+b,0)/arr.length;
 
 async function createTag(tag){
     const result = await tag.save()
-    console.log(result);
 }
 
 async function getTags(){

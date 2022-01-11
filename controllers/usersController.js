@@ -55,7 +55,6 @@ router.get('/books', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     const user = await usersService.getUsersById(req.params.id);
-    console.log(user)
     if (!user) return res.status(404).send("The user with given ID was not found") //404
     res.send(user);
 });

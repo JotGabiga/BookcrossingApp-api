@@ -16,7 +16,6 @@ return await Book
 };
 
 async function getPaginatedBooks(skip){
-    console.log(skip)
     return await Book 
         .find()
         .limit(9)
@@ -54,6 +53,7 @@ async function deleteBook(id){
 
 async function deleteBookComment(id, commentId){
     Book.findById(id, function(err, book){
+        console.log(book)
     book.comments = book.comments.filter(item => item._id.valueOf() !== commentId);
     updateBook(id,book);
     })

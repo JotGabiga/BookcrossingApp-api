@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     const tag = await tagsService.getTagById(req.params.id);
-    console.log(tag)
     if (!tag) return res.status(404).send("The tag with given ID was not found") //404
     res.send(tag);
 });
