@@ -4,14 +4,13 @@ const booksRouter = require('./controllers/booksController');
 const tagsRouter = require('./controllers/tagsController');
 const usersRouter = require('./controllers/usersController');
 const express = require('express');
-
 const mongoose = require('mongoose');
 
 
 const corsMiddleware = require ('./cors');
 
 const app = express();
-app.options('*',corsMiddleware);
+// app.options('*',corsMiddleware);
 app.use(corsMiddleware);
 
 // app.use(cors({origin:'*'})); 
