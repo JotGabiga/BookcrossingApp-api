@@ -7,15 +7,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 
-const cors = require('cors');
+
 const app = express();
-app.use(cors({ origin: "https://bookcrossing-328121.web.app/", credentials: true }))
 
-
+const cors = require('cors');
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Request-Headers", "*");
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS, PUT, PATCH');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS, PUT, PATCH.');
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept, Authorization");
 //     res.header("Access-Control-Allow-Credentials", "true");
 //     next();
