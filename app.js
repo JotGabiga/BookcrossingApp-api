@@ -9,14 +9,14 @@ const corsMiddleware = require ('./cors');
 
 
 const app = express();
-app.options('*',corsMiddleware);
+// app.options('*',corsMiddleware);
 app.use(corsMiddleware);
 
 // app.use(cors()); 
-// app.use(express.json());
-// app.use('/books', booksRouter);
-// app.use('/tags',tagsRouter);
-// app.use('/user',usersRouter);
+app.use(express.json());
+app.use('/books', booksRouter);
+app.use('/tags',tagsRouter);
+app.use('/user',usersRouter);
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USER}:${process.env.MONGO_ATLAS_PASSWORD}@bookcrossingcluster.mqqso.mongodb.net/bookcrossingCluster?retryWrites=true&w=majority`)
 .then(()=>console.log('Connected to MongoDB..'))
