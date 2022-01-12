@@ -8,16 +8,10 @@ async function createBook(book){
     return await book.save()
 }
 
-async function getBooks(tag){
-return await Book 
-    .find(tag ? {tags:tag} : null)
-    .sort({title:1})
-    // .select({title:1, tags:1 });
-};
 
-async function getPaginatedBooks(skip){
+async function getBooks(tag, skip){
     return await Book 
-        .find()
+        .find(tag ? {tags:tag} : null)
         .limit(9)
         .sort({title:1})
         .skip(parseInt(skip, 10))
@@ -64,4 +58,4 @@ async function getBooksByIdList(bookIds){
     .find({ '_id': { $in: bookIds} });
 };
 
-module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, patchBook, updateVotes,getBooksByIdList,deleteBookComment,getPaginatedBooks};
+module.exports = {getBooks, createBook, getBookById, deleteBook, updateBook, patchBook, updateVotes,getBooksByIdList,deleteBookComment};

@@ -5,28 +5,15 @@ const booksService = require('../services/booksService');
 const Book = require('../models/bookSchema');
 const Joi = require('joi');
 
-
-
-router.get('/', async (req, res) => {
+router.get(`/`, async (req, res) => {
     try {
-        const books = await booksService.getBooks(req.query.tags)
-        res.send(books);
-    }
-    catch (ex) {
-        res.status(500).send('Something failed.')
-    }
-});
-
-router.get(`/paginated`, async (req, res) => {
-    try {
-        const paginatedBooks = await booksService.getPaginatedBooks(req.query.skip);
+        const paginatedBooks = await booksService.getBooks(req.query.tag, req.query.skip);
         res.send(paginatedBooks);
     }
     catch (ex) {
         res.status(500).send('Something failed.')
     }
 });
-
 
 router.get('/:id', async (req, res) => {
 
@@ -54,12 +41,7 @@ router.post('/', async (req, res) => {
     res.status(201).send(book);
 });
 
-
-
 router.post('/:id/comments', async (req, res) => {
-    //     const { error } = validateBook(req.body); //result.error
-    //     if (error) return res.status(400).send(error.details[0].message); //400
-
     let id = uuid();
     const book = await booksService.getBookById(req.params.id);
     req.body.comments._id = id;
@@ -68,8 +50,6 @@ router.post('/:id/comments', async (req, res) => {
     res.status(201).send(id);
 
 });
-
-
 
 router.put('/:id', async (req, res) => {
     const book = await booksService.updateBook(req.params.id, req.body);
@@ -88,17 +68,13 @@ router.put('/:id', async (req, res) => {
     book.tags = req.body.tags;
     book.votes = req.body.votes;
     book.comments = req.body.comments;
-
     res.status(204).send(book);
 });
-
 
 router.delete('/:id/comments', async (req, res) => {
     await booksService.deleteBookComment(req.params.id, req.body.commentId)
     res.status(204).send("Comment deleted")
-
 });
-
 
 router.patch('/:id', async (req, res) => {
     const book = await booksService.patchBook(req.params.id, req.body);
@@ -109,7 +85,6 @@ router.patch('/:id', async (req, res) => {
 
     res.status(204).send(book);
 });
-
 
 function validateBook(book) {
     const schema = {
